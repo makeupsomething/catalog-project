@@ -68,6 +68,8 @@ class Item(Base):
             'id': self.id,
             'price': self.price,
             'picture': self.picture,
+            'time_created': self.time_created,
+            'time_updated': self.time_updated, 
         }
 
 engine = create_engine('sqlite:///categoryanditems.db')
