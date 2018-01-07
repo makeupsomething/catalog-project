@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <form action= "{{url_for('AddItem', category_id=category_id)}}" method = 'POST'>
+
+    <p>Name:</p>
+    <input type = 'text' size='30' name = 'name' placeholder = 'name'>
+    <input type = 'text' size='30' name = 'price' placeholder = 'price'>
+    <input type = 'text' size='30' name = 'description' placeholder = 'description'>
+    <input type = 'text' size='30' name = 'image' placeholder = 'image'>
+
+    <input type='submit' value='Add'>
+    </form>
+    <a href= "{{url_for('category', category_id=category_id)}}">Cancel</a>
+</head>
+<body>
+
+</body>
+</html>

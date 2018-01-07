@@ -179,6 +179,7 @@ def categoryList():
     return render_template('categories.html', categories=categories)
 
 @app.route('/categories/<int:category_id>/')
+@app.route('/categories/<int:category_id>/items')
 def category(category_id):
     category = session.query(Category).filter_by(id=category_id).one()
     items = session.query(Item).filter_by(category_id=category.id)
@@ -186,6 +187,34 @@ def category(category_id):
         return render_template('public_category.html', category=category, items=items)
     else:
         return render_template('category.html', category=category, items=items)
+
+@app.route('/categories/<int:category_id>/items/new', methods=['GET', 'POST'])
+def AddItem(category_id):
+    if 'username' not in login_session:
+        return redirect(url_for('categoryList'))
+    if request.method == 'POST':
+        newItem = Item(
+            name=request.form['name'],
+            description=request.form['description'],
+            price=request.form['price'],
+            picture=request.form['image'],
+            category_id=category_id,
+            user_id=login_session['user_id'])
+        session.add(newItem)
+        session.commit()
+        return redirect(url_for('category', category_id=category_id))
+    else:
+        return render_template('newitem.html', category_id=category_id)
+
+@app.route('/categories/<int:category_id>/<int:item_id>', methods=['GET', 'POST'])
+def item(category_id, item_id):
+    category = session.query(Category).filter_by(id=category_id).one()
+    item = session.query(Item).filter_by(id=item_id).one()
+    if 'username' not in login_session:
+        return render_template('public_item.html', category=category, items=item)
+    else:
+        return render_template('item.html', category=category, item=item)
+
     
 
 if __name__ == '__main__':
