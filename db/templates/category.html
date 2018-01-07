@@ -5,15 +5,11 @@
     <title>Title</title>
     <div>
         <p>{{category.name}}</p>
-        <a href="#">Add new item</a>
+        <a href="{{url_for('AddItem', category_id=category.id)}}">Add new item</a>
         {% for i in items %}
         <div>
-            <p>{{i.name}}</p>
-            <p>{{i.description}}</p>
-            <p>{{i.price}}</p>
-            <p>{{i.time_created}}</p>
-            <p>{{i.time_updated}}</p>
             <a href="{{url_for('item', category_id=category.id, item_id=i.id)}}">{{i.name}}</a>
+            <p>{{i.price}}</p>
         </div>
         {% endfor %}
     </div>

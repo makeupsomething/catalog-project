@@ -5,7 +5,6 @@
     <title>Title</title>
     {% for c in categories %}
     <div>
-        <a href="#">{{c.name}}</a>
         <a href="{{url_for('category', category_id=c.id)}}">{{c.name}}</a>
     </div>
     {% endfor %}
