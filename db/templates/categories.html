@@ -3,11 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    {% for c in categories %}
     <div>
-        <a href="{{url_for('category', category_id=c.id)}}">{{c.name}}</a>
+        {% for c in categories %}
+        <div>
+            <a href="{{url_for('category', category_id=c.id)}}">{{c.name}}</a>
+        </div>
+        {% endfor %}
+    </div>
+    {% for u in updated %}
+    <div>
+        <p>{{u.name}}</p>
+        <a href="{{url_for('item', category_id=u.category_id, item_id=u.id)}}">{{u.name}}</a>
     </div>
     {% endfor %}
+
 </head>
 <body>
 

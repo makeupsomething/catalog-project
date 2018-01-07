@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, jsonify, url_for, flash
-from sqlalchemy import create_engine, asc
+from sqlalchemy import create_engine, asc, desc
 from sqlalchemy.orm import sessionmaker
 from setup_db import Base, Category, Item, User
 from flask import session as login_session
@@ -176,7 +176,8 @@ def gdisconnect():
 @app.route('/categories/')
 def categoryList():
     categories = session.query(Category).all()
-    return render_template('categories.html', categories=categories)
+    recentlyUpdated = session.query(Item).order_by(desc(Item.time_created)).limit(3).all()
+    return render_template('categories.html', categories=categories, updated=recentlyUpdated)
 
 @app.route('/categories/<int:category_id>/')
 @app.route('/categories/<int:category_id>/items')
