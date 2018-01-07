@@ -182,7 +182,11 @@ def categoryList():
 def category(category_id):
     category = session.query(Category).filter_by(id=category_id).one()
     items = session.query(Item).filter_by(category_id=category.id)
-    return render_template('category.html', category=category, items=items)
+    if 'username' not in login_session:
+        return render_template('public_category.html', category=category, items=items)
+    else:
+        return render_template('category.html', category=category, items=items)
+    
 
 if __name__ == '__main__':
     app.secret_key = 'super_secret_key'
