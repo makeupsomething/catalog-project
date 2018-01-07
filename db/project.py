@@ -215,6 +215,31 @@ def item(category_id, item_id):
     else:
         return render_template('item.html', category=category, item=item)
 
+@app.route('/categories/<int:category_id>/<int:item_id>/edit', methods=['GET', 'POST'])
+def EditItem(category_id, item_id):
+    if 'username' not in login_session:
+        return redirect(url_for('categoryList'))
+    editedItem = session.query(Item).filter_by(id=item_id).one()
+    if request.method == 'POST':
+        if request.form['name']:
+            editedItem.name = request.form['name']
+        if request.form['price']:
+            editedItem.price = request.form['price']
+        if request.form['description']:
+            editedItem.description = request.form['description']
+        if request.form['image']:
+            editedItem.picture = request.form['image']
+        if request.form['category']:
+            editedItem.category_id = request.form['category']
+        session.add(editedItem)
+        session.commit()
+        return redirect(url_for('category', category_id=category_id))
+    else:
+        return render_template('edititem.html', category_id=category_id, item_id=item_id, item=editedItem)
+
+
+
+
     
 
 if __name__ == '__main__':

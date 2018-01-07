@@ -5,7 +5,7 @@
     <title>Title</title>
     <div>
         <p>{{category.name}}</p>
-        <a href="#">Edit item</a>
+        <a href="{{url_for('EditItem', category_id=category.id, item_id=item.id)}}">Edit Item</a>
         <div>
             <p>{{item.name}}</p>
             <p>{{item.description}}</p>
