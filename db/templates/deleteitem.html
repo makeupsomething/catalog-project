@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+        <p>Are you sure you want to delete {{item.name}}</p>
+        <form action="{{url_for('DeleteItem', category_id=category_id, item_id=item_id)}}" method='POST' id="deleteForm">
+
+        </form>
+    <button type="submit" form="deleteForm" >Delete</button>
+    <a href= "{{url_for('item', category_id=category_id, item_id=item_id)}}">Cancel</a>
+</head>
+<body>
+
+</body>
+</html>
