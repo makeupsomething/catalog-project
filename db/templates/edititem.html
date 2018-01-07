@@ -9,8 +9,12 @@
     <input type = 'text' size='30' name = 'price' placeholder = 'price'>
     <input type = 'text' size='30' name = 'description' placeholder = 'description'>
     <input type = 'text' size='30' name = 'image' placeholder = 'image'>
-    <input type = 'text' size='30' name = 'category' placeholder = 'category'>
-
+    <select name ='category'>
+        <option type = 'text' size='30' value="item.category_id" selected>{{item.category.name}}</option>
+        {% for c in categories %}
+            <option type = 'number' size='30' value="{{c.id}}">{{c.name}}</option>
+        {% endfor %}
+      </select>
     <input type='submit' value='Edit'>
     </form>
     <a href= "{{url_for('item', category_id=category_id, item_id=item_id)}}">Cancel</a>

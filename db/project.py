@@ -230,12 +230,16 @@ def EditItem(category_id, item_id):
         if request.form['image']:
             editedItem.picture = request.form['image']
         if request.form['category']:
+            print "the cat is"
+            print request.form['category']
             editedItem.category_id = request.form['category']
         session.add(editedItem)
         session.commit()
         return redirect(url_for('category', category_id=category_id))
     else:
-        return render_template('edititem.html', category_id=category_id, item_id=item_id, item=editedItem)
+        categories = session.query(Category).all()
+        categories.remove(editedItem.category)
+        return render_template('edititem.html', category_id=category_id, item_id=item_id, item=editedItem, categories=categories)
 
 @app.route('/categories/<int:category_id>/<int:item_id>/delete', methods=['GET', 'POST'])
 def DeleteItem(category_id, item_id):
@@ -266,9 +270,6 @@ def categoryJSON(category_id):
 def itemJSON(category_id, item_id):
     item = session.query(Item).filter_by(id=item_id).one()
     return jsonify(Item=item.serialize)
-
-
-
     
 
 if __name__ == '__main__':
