@@ -9,6 +9,8 @@ Some json endpoints are provided for all categories, individual categories and i
 
 Login is provided via Google OAuth.
 
+It is styled with bootstrap.
+
 ## To Run
 
 ### You will need:
