@@ -200,11 +200,9 @@ def AddItem():
             price=request.form['price'],
             picture=request.form['image'],
             category_id=request.form['category'],
-            #print "the cat is"
-            #print request.form['category']
-            #category_id=category_id,
             user_id=login_session['user_id'])
         cat=request.form['category']
+        print "cat is " + cat
         session.add(newItem)
         session.commit()
         return redirect(url_for('category', category_id=cat))

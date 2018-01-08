@@ -2,24 +2,54 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <form action= "{{url_for('EditItem', category_id=category_id, item_id=item_id)}}" method = 'POST'>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <title>New Item</title>
 
-    <p>Name:</p>
-    <input type = 'text' size='30' name = 'name' placeholder = 'item.name'>
-    <input type = 'text' size='30' name = 'price' placeholder = 'item.price'>
-    <input type = 'text' size='30' name = 'description' placeholder = 'item.description'>
-    <input type = 'text' size='30' name = 'image' placeholder = 'item.image'>
-    <select name ='category'>
-        <option type = 'text' size='30' value="item.category_id" selected>{{item.category.name}}</option>
-        {% for c in categories %}
-            <option type = 'number' size='30' value="{{c.id}}">{{c.name}}</option>
-        {% endfor %}
-      </select>
-    <input type='submit' value='Edit'>
-    </form>
-    <a href= "{{url_for('item', category_id=category_id, item_id=item_id)}}">Cancel</a>
+    <!-- Custom styles for this template -->
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
+    <header>
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+            <a class="navbar-brand" href="#">My Catalog</a>
+            <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+        </nav>
+    </header>
+    <div class='container-fluid'>
+            <div class='row'>
+                <nav class="col-sm-3 col-md-2 d-none d-sm-block bg-light sidebar">
+                    <ul class="nav nav-pills flex-column">
+                        {% for c in categories %}
+                            <li class="nav-item">
+                            <a class="nav-link" href="{{url_for('category', category_id=c.id)}}">{{c.name}}</a>
+                        {% endfor %} 
+                    </ul>
+                </nav>
+    
+                <main role="main" class="col-sm-9 ml-sm-auto col-md-10 pt-3">
+                    <h1>Edit item</h1>
+                    <section class="row text-center placeholders">
+                    <form action= "{{url_for('EditItem', category_id=category_id, item_id=item_id)}}" method = 'POST'>
 
+                    <p>Name:</p>
+                    <input type = 'text' size='30' name = 'name' value = '{{item.name}}'>
+                    <input type = 'text' size='30' name = 'price' value = '{{item.price}}'>
+                    <input type = 'text' size='30' name = 'description' value = '{{item.description}}'>
+                    <input type = 'text' size='30' name = 'image' value = '{{item.image}}'>
+                    <select name ='category'>
+                        <option type = 'number' size='30' value="{{item.category_id}}" selected>{{item.category.name}}</option>
+                        {% for c in categories %}
+                            <option type = 'number' size='30' value="{{c.id}}">{{c.name}}</option>
+                        {% endfor %}
+                    </select>
+                    <input type='submit' value='Edit'>
+                    </form>
+                    <a href= "{{url_for('item', category_id=category_id, item_id=item_id)}}">Cancel</a>
+                    </section>
+                </main>
+            </div>
+    </div>
 </body>
 </html>
