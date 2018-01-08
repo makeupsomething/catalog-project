@@ -40,7 +40,7 @@ def showLogin():
     login_session['state'] = state
     return render_template('login.html', STATE=state)
 
-
+# If the user is not in the database then create an entry for them
 def createUser(login_session):
     newUser = User(name=login_session['username'], email=login_session[
                    'email'], picture=login_session['picture'])
@@ -49,12 +49,12 @@ def createUser(login_session):
     user = session.query(User).filter_by(email=login_session['email']).one()
     return user.id
 
-
+# Return the user data from the database
 def getUserInfo(user_id):
     user = session.query(User).filter_by(id=user_id).one()
     return user
 
-
+# Return the user id from the databse based on their email address
 def getUserID(email):
     try:
         user = session.query(User).filter_by(email=email).one()
@@ -65,6 +65,20 @@ def getUserID(email):
 
 @app.route('/gconnect', methods=['POST'])
 def gconnect():
+    """
+    Logs a user in
+    1. We make sure that the request is coming from a valid source by
+    comparing the request state with login session state created when the 
+    user loged in.
+    2. Obtain authorization code from the request and exchange it for a  
+    credentials object.
+    3. We then verify that the credentials access token is a valid access token.
+    4. We verify that the credentials access token is valid for the user and for the app.
+    5. If they are valid we set the credenitals access token as our login session.
+    6. We check to see if the user is already logged in or not.
+    7. If they are not, we get the users username, picture and email and save it
+    into our login session.
+    """
     # Validate state token
     if request.args.get('state') != login_session['state']:
         response = make_response(json.dumps('Invalid state parameter.'), 401)
@@ -155,6 +169,14 @@ def gconnect():
 
 @app.route('/gdisconnect', methods=['GET', 'POST'])
 def gdisconnect():
+    """
+    Logs a user out
+    If there is an access token in the login session,
+    send a request to revoke it and delete the users
+    data from the login session.
+    If there is no access token in the login session
+    then abort
+    """
     access_token = login_session.get('access_token')
     if access_token is None:
         print('Access Token is None')
