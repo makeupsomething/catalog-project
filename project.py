@@ -40,6 +40,7 @@ def showLogin():
     login_session['state'] = state
     return render_template('login.html', STATE=state)
 
+
 # If the user is not in the database then create an entry for them
 def createUser(login_session):
     newUser = User(name=login_session['username'], email=login_session[
@@ -49,10 +50,12 @@ def createUser(login_session):
     user = session.query(User).filter_by(email=login_session['email']).one()
     return user.id
 
+
 # Return the user data from the database
 def getUserInfo(user_id):
     user = session.query(User).filter_by(id=user_id).one()
     return user
+
 
 # Return the user id from the databse based on their email address
 def getUserID(email):
@@ -68,16 +71,18 @@ def gconnect():
     """
     Logs a user in
     1. We make sure that the request is coming from a valid source by
-    comparing the request state with login session state created when the 
+    comparing the request state with login session state created when the
     user loged in.
-    2. Obtain authorization code from the request and exchange it for a  
+    2. Obtain authorization code from the request and exchange it for a
     credentials object.
-    3. We then verify that the credentials access token is a valid access token.
-    4. We verify that the credentials access token is valid for the user and for the app.
-    5. If they are valid we set the credenitals access token as our login session.
+    3. Verify that the credentials access token is a valid access token.
+    4. Verify that the credentials access token is valid for
+    the user and for the app.
+    5. If they are valid we set the credenitals access token
+    as our login session.
     6. We check to see if the user is already logged in or not.
-    7. If they are not, we get the users username, picture and email and save it
-    into our login session.
+    7. If they are not, we get the users username,
+    picture and email and save itinto our login session.
     """
     # Validate state token
     if request.args.get('state') != login_session['state']:
@@ -151,7 +156,7 @@ def gconnect():
 
     user_id = getUserID(login_session['email'])
     if not user_id:
-        login_session['user_id']=createUser(login_session)
+        login_session['user_id'] = createUser(login_session)
     else:
         login_session['user_id'] = user_id
     output = ''
@@ -323,7 +328,10 @@ def EditItem(category_id, item_id):
         return redirect(url_for('categoryList'))
     if login_session['user_id'] != creator.id:
         flash("You do not have permission to edit this item")
-        return redirect(url_for('item', category_id=category_id, item_id=item_id))
+        return redirect(url_for(
+                        'item',
+                        category_id=category_id,
+                        item_id=item_id))
     if request.method == 'POST':
         if request.form['name']:
             editedItem.name = request.form['name']
@@ -360,7 +368,10 @@ def DeleteItem(category_id, item_id):
     creator = getUserInfo(itemToDelete.user_id)
     if login_session['user_id'] != creator.id:
         flash("You do not have permission to delete this item")
-        return redirect(url_for('item', category_id=category_id, item_id=item_id))
+        return redirect(url_for(
+                        'item',
+                        category_id=category_id,
+                        item_id=item_id))
     if request.method == 'POST':
         session.delete(itemToDelete)
         session.commit()
