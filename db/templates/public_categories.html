@@ -30,15 +30,20 @@
             </nav>
 
             <main role="main" class="col-sm-9 ml-sm-auto col-md-10 pt-3">
-                <h1>Latest Items</h1>
-                <section class="row text-center placeholders">
-                    <ul class="nav nav-pills flex-column">
-                        {% for u in updated %}
-                            <li class="nav-item">
-                            <a class="nav-link" href="{{url_for('item', category_id=u.category_id, item_id=u.id)}}">{{u.name}}</a>
-                        {% endfor %}
-                    </ul>
-                </section>
+                    <h1>Latest Items</h1>
+                    <section class="row text-center placeholders">
+                        <ul class="nav nav-pills flex-column">
+                            {% for u in updated %}
+                                <div class="card" style="width: 18rem;">
+                                    <div class="card-body">
+                                        <h5 class="card-title nav-link">{{u.name}}</h5>
+                                        <p class="card-text">{{u.price}}</p>
+                                        <a class="nav-link" href="{{url_for('item', category_id=u.category_id, item_id=u.id)}}">More Details</a>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </ul>
+                    </section>
             </main>
         </div>
     </div>

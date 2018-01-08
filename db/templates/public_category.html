@@ -15,7 +15,7 @@
             <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
             </button>
-            <a class="nav-link" href="{{url_for('gdisconnect')}}">Logout</a>
+            <a class="nav-link" href="{{url_for('showLogin')}}">Login</a>
         </nav>
     </header>
     <div class='container-fluid'>
@@ -30,15 +30,15 @@
             </nav>
 
             <main role="main" class="col-sm-9 ml-sm-auto col-md-10 pt-3">
-                <h1>Latest Items</h1>
+                <h1>{{category.name}}</h1>
                 <section class="row text-center placeholders">
                     <ul class="nav nav-pills flex-column">
-                        {% for u in updated %}
+                        {% for i in items %}
                             <div class="card" style="width: 18rem;">
                                 <div class="card-body">
-                                    <h5 class="card-title nav-link">{{u.name}}</h5>
-                                    <p class="card-text">{{u.price}}</p>
-                                    <a class="nav-link" href="{{url_for('item', category_id=u.category_id, item_id=u.id)}}">More Details</a>
+                                    <h5 class="card-title nav-link">{{i.name}}</h5>
+                                    <p class="card-text">{{i.price}}</p>
+                                    <a class="nav-link" href="{{url_for('item', category_id=category.id, item_id=i.id)}}">More Details</a>
                                 </div>
                             </div>
                         {% endfor %}
