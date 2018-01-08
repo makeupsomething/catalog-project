@@ -33,7 +33,7 @@
                     <h1>{{category.name}}</h1>
                     <section class="row text-center placeholders">
                         <ul class="nav nav-pills flex-column">
-                            <a class="btn btn-primary" href="{{url_for('AddItem')}}">Add new item</a>
+                            <a class="btn btn-primary" href="{{url_for('AddCategoryItem', category_id=category.id)}}">Add new item</a>
                             {% for i in items %}
                                 <div class="card" style="width: 18rem;">
                                     <div class="card-body">

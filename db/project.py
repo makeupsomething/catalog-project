@@ -243,8 +243,7 @@ def AddItem():
         session.commit()
         return redirect(url_for(
                         'category',
-                        category_id=cat,
-                        categories=categories))
+                        category_id=cat))
     else:
         return render_template('newitem.html', categories=categories)
 
@@ -266,8 +265,7 @@ def AddCategoryItem(category_id):
         session.commit()
         return redirect(url_for(
                         'category',
-                        category_id=category_id,
-                        categories=categories))
+                        category_id=category_id))
     else:
         return render_template(
                 'newitemcat.html',
@@ -315,8 +313,7 @@ def EditItem(category_id, item_id):
         session.commit()
         return redirect(url_for(
                 'category',
-                category_id=category_id,
-                categories=categories))
+                category_id=category_id))
     else:
         all_categories = categories
         categories.remove(editedItem.category)
@@ -341,8 +338,7 @@ def DeleteItem(category_id, item_id):
         session.commit()
         return redirect(url_for(
                 'category',
-                category_id=category_id,
-                categories=categories))
+                category_id=category_id))
     else:
         return render_template(
                 'deleteitem.html',
