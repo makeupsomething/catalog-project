@@ -189,8 +189,31 @@ def category(category_id):
     else:
         return render_template('category.html', category=category, items=items)
 
+@app.route('/categories/items/new', methods=['GET', 'POST'])
+def AddItem():
+    if 'username' not in login_session:
+        return redirect(url_for('categoryList'))
+    if request.method == 'POST':
+        newItem = Item(
+            name=request.form['name'],
+            description=request.form['description'],
+            price=request.form['price'],
+            picture=request.form['image'],
+            category_id=request.form['category'],
+            #print "the cat is"
+            #print request.form['category']
+            #category_id=category_id,
+            user_id=login_session['user_id'])
+        cat=request.form['category']
+        session.add(newItem)
+        session.commit()
+        return redirect(url_for('category', category_id=cat))
+    else:
+        categories = session.query(Category).all()
+        return render_template('newitem.html', categories=categories)
+
 @app.route('/categories/<int:category_id>/items/new', methods=['GET', 'POST'])
-def AddItem(category_id):
+def AddCategoryItem(category_id):
     if 'username' not in login_session:
         return redirect(url_for('categoryList'))
     if request.method == 'POST':
@@ -205,7 +228,8 @@ def AddItem(category_id):
         session.commit()
         return redirect(url_for('category', category_id=category_id))
     else:
-        return render_template('newitem.html', category_id=category_id)
+        categories = session.query(Category).all()
+        return render_template('newitemcat.html', category_id=category_id, categories=categories)
 
 @app.route('/categories/<int:category_id>/<int:item_id>', methods=['GET', 'POST'])
 def item(category_id, item_id):
