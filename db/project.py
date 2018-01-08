@@ -177,7 +177,10 @@ def gdisconnect():
 def categoryList():
     categories = session.query(Category).all()
     recentlyUpdated = session.query(Item).order_by(desc(Item.time_created)).limit(3).all()
-    return render_template('categories.html', categories=categories, updated=recentlyUpdated)
+    if 'username' not in login_session:
+        return render_template('public_categories.html', categories=categories, updated=recentlyUpdated)
+    else:
+        return render_template('categories.html', categories=categories, updated=recentlyUpdated)
 
 @app.route('/categories/<int:category_id>/')
 @app.route('/categories/<int:category_id>/items')
