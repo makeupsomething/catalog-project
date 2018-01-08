@@ -11,17 +11,18 @@
 <body>
     <header>
         <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-            <a class="navbar-brand" href="#">My Catalog</a>
+            <a class="navbar-brand" href="{{url_for('categoryList')}}">My Catalog</a>
             <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
             </button>
+            <a class="nav-link" href="{{url_for('gdisconnect')}}">Logout</a>
         </nav>
     </header>
     <div class='container-fluid'>
             <div class='row'>
                 <nav class="col-sm-3 col-md-2 d-none d-sm-block bg-light sidebar">
                     <ul class="nav nav-pills flex-column">
-                        {% for c in categories %}
+                        {% for c in all_categories %}
                             <li class="nav-item">
                             <a class="nav-link" href="{{url_for('category', category_id=c.id)}}">{{c.name}}</a>
                         {% endfor %} 
