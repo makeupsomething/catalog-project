@@ -235,7 +235,6 @@ def AddItem():
             name=request.form['name'],
             description=request.form['description'],
             price=request.form['price'],
-            picture=request.form['image'],
             category_id=request.form['category'],
             user_id=login_session['user_id'])
         cat = request.form['category']
@@ -258,7 +257,6 @@ def AddCategoryItem(category_id):
             name=request.form['name'],
             description=request.form['description'],
             price=request.form['price'],
-            picture=request.form['image'],
             category_id=category_id,
             user_id=login_session['user_id'])
         session.add(newItem)

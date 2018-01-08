@@ -32,21 +32,33 @@
                 <main role="main" class="col-sm-9 ml-sm-auto col-md-10 pt-3">
                     <h1>Add new item</h1>
                     <section class="row text-center placeholders">
-                    <form action= "{{url_for('AddCategoryItem', category_id=category_id)}}" method = 'POST'>
 
-                    <p>Name:</p>
-                    <input type = 'text' size='30' name = 'name' placeholder = 'name'>
-                    <input type = 'text' size='30' name = 'price' placeholder = 'price'>
-                    <input type = 'text' size='30' name = 'description' placeholder = 'description'>
-                    <input type = 'text' size='30' name = 'image' placeholder = 'image'>
-                    <select name ='category'>
-                        {% for c in categories %}
-                            <option type = 'number' size='30' value="{{c.id}}">{{c.name}}</option>
-                        {% endfor %}
-                    </select>
-                    <input type='submit' value='Add'>
-                    </form>
-                    <a href= "{{url_for('categoryList')}}">Cancel</a>
+                    <form action= "{{url_for('AddCategoryItem', category_id=category_id)}}" method = 'POST'>
+                            <div class="form-group">
+                                <label for="itemName">Item Name</label>
+                                <input type = 'text' class="form-control" size='30' name = 'name' placeholder = 'name'>
+                            </div>
+                            <div class="form-group">
+                                    <label for="itemPrice">Item Price</label>
+                                    <input type = 'text' class="form-control" size='30' name = 'price' placeholder = 'price'>
+                            </div>
+                            <div class="form-group">
+                                    <label for="itemDescription">Item Description</label>
+                                    <textarea type = 'text' class="form-control" rows="3" name = 'description' placeholder = 'description'></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleFormControlSelect1">Category</label>
+                                <select class="form-control" name ='category'>
+                                    {% for c in categories %}
+                                        <option type = 'number' size='30' value="{{c.id}}">{{c.name}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Add Item</button>
+                            <a class="btn btn-danger" href= "{{url_for('categoryList')}}">Cancel</a>
+                        </form>
+
+                    <form action= "{{url_for('AddCategoryItem', category_id=category_id)}}" method = 'POST'>
                     </section>
                 </main>
             </div>
