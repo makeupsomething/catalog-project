@@ -137,9 +137,9 @@ def gconnect():
 
     user_id = getUserID(login_session['email'])
     if not user_id:
-        createUser(login_session)
-    login_session['user_id'] = user_id
-
+        login_session['user_id']=createUser(login_session)
+    else:
+        login_session['user_id'] = user_id
     output = ''
     output += '<h1>Welcome, '
     output += login_session['username']
@@ -294,10 +294,14 @@ def item(category_id, item_id):
 @app.route('/categories/<int:category_id>/<int:item_id>/edit',
            methods=['GET', 'POST'])
 def EditItem(category_id, item_id):
+    editedItem = session.query(Item).filter_by(id=item_id).one()
+    creator = getUserInfo(editedItem.user_id)
+    categories = session.query(Category).all()
     if 'username' not in login_session:
         return redirect(url_for('categoryList'))
-    editedItem = session.query(Item).filter_by(id=item_id).one()
-    categories = session.query(Category).all()
+    if login_session['user_id'] != creator.id:
+        flash("You do not have permission to edit this item")
+        return redirect(url_for('item', category_id=category_id, item_id=item_id))
     if request.method == 'POST':
         if request.form['name']:
             editedItem.name = request.form['name']
@@ -331,6 +335,10 @@ def DeleteItem(category_id, item_id):
         return redirect(url_for('categories'))
     itemToDelete = session.query(Item).filter_by(id=item_id).one()
     categories = session.query(Category).all()
+    creator = getUserInfo(itemToDelete.user_id)
+    if login_session['user_id'] != creator.id:
+        flash("You do not have permission to delete this item")
+        return redirect(url_for('item', category_id=category_id, item_id=item_id))
     if request.method == 'POST':
         session.delete(itemToDelete)
         session.commit()

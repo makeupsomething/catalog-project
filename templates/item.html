@@ -18,6 +18,7 @@
             <a class="nav-link" href="{{url_for('gdisconnect')}}">Logout</a>
         </nav>
     </header>
+
     <div class='container-fluid'>
             <div class='row'>
                 <nav class="col-sm-3 col-md-2 d-none d-sm-block bg-light sidebar">
@@ -30,6 +31,18 @@
                 </nav>
 
                 <main role="main" class="col-sm-9 ml-sm-auto col-md-10 pt-3">
+                    {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                    <ul class=flashes>
+                        {% for message in messages %}
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                            <strong>{{ message }}</strong> 
+                        </div>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                    {% endwith %}
+                    {% block body %}{% endblock %}
                     <div class="card" style="width: 18rem;">
                         <div class="card-body">
                             <h5 class="card-title">{{item.name}}</h5>
@@ -38,6 +51,7 @@
                             <p class="card-text">{{item.price}}</p>
                             <p class="card-text">{{item.time_created}}</p>
                             <p class="card-text">{{item.time_updated}}</p>
+                            <p class="card-text">{{item.user_id}}</p>
                             <a class="btn btn-primary" href="{{url_for('EditItem', category_id=category.id, item_id=item.id)}}">Edit Item</a>
                             <a class="btn btn-danger" href="{{url_for('DeleteItem', category_id=category.id, item_id=item.id)}}">Delete Item</a>
                         </div>
