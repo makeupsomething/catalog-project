@@ -7,6 +7,8 @@ Logged in users can add new items, edit existing items and delete existing items
 
 Some json endpoints are provided for all categories, individual categories and individual items.
 
+Login is provided via Google OAuth.
+
 ## To Run
 
 ### You will need:
