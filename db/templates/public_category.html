@@ -34,9 +34,13 @@
                     <section class="row text-center placeholders">
                         <ul class="nav nav-pills flex-column">
                             {% for i in items %}
-                                <li class="nav-item">
-                                <a class="nav-link" href="{{url_for('item', category_id=category.id, item_id=i.id)}}">{{i.name}}</a>
-                                <p>{{i.price}}</p>
+                                <div class="card" style="width: 18rem;">
+                                    <div class="card-body">
+                                        <h5 class="card-title nav-link">{{i.name}}</h5>
+                                        <p class="card-text">{{i.price}}</p>
+                                        <a class="nav-link" href="{{url_for('item', category_id=category.id, item_id=i.id)}}">More Details</a>
+                                    </div>
+                                </div>
                             {% endfor %}
                         </ul>
                     </section>
