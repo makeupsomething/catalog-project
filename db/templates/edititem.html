@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
-    <title>New Item</title>
+    <title>Edit Item</title>
 
     <!-- Custom styles for this template -->
     <link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
@@ -33,21 +33,30 @@
                     <h1>Edit item</h1>
                     <section class="row text-center placeholders">
                     <form action= "{{url_for('EditItem', category_id=category_id, item_id=item_id)}}" method = 'POST'>
-
-                    <p>Name:</p>
-                    <input type = 'text' size='30' name = 'name' value = '{{item.name}}'>
-                    <input type = 'text' size='30' name = 'price' value = '{{item.price}}'>
-                    <input type = 'text' size='30' name = 'description' value = '{{item.description}}'>
-                    <input type = 'text' size='30' name = 'image' value = '{{item.image}}'>
-                    <select name ='category'>
-                        <option type = 'number' size='30' value="{{item.category_id}}" selected>{{item.category.name}}</option>
-                        {% for c in categories %}
-                            <option type = 'number' size='30' value="{{c.id}}">{{c.name}}</option>
-                        {% endfor %}
-                    </select>
-                    <input type='submit' value='Edit'>
+                    <div class="form-group">
+                        <label for="itemName">Item Name</label>
+                        <input type = 'text' class="form-control" size='30' name = 'name' value = '{{item.name}}'>
+                    </div>
+                    <div class="form-group">
+                            <label for="itemPrice">Item Price</label>
+                            <input type = 'text' class="form-control" size='30' name = 'price' value = '{{item.price}}'>
+                    </div>
+                    <div class="form-group">
+                            <label for="itemDescription">Item Description</label>
+                            <textarea type = 'text' class="form-control" rows="3" name = 'description' value = '{{item.description}}'></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlSelect1">Category</label>
+                        <select class="form-control" name ='category'>
+                            <option type = 'number' size='30' value="{{item.category_id}}" selected>{{item.category.name}}</option>
+                            {% for c in categories %}
+                                <option type = 'number' size='30' value="{{c.id}}">{{c.name}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Edit</button>
+                    <a class="btn btn-danger" href= "{{url_for('item', category_id=category_id, item_id=item_id)}}">Cancel</a>
                     </form>
-                    <a href= "{{url_for('item', category_id=category_id, item_id=item_id)}}">Cancel</a>
                     </section>
                 </main>
             </div>

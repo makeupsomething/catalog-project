@@ -309,8 +309,6 @@ def EditItem(category_id, item_id):
             editedItem.price = request.form['price']
         if request.form['description']:
             editedItem.description = request.form['description']
-        if request.form['image']:
-            editedItem.picture = request.form['image']
         if request.form['category']:
             editedItem.category_id = request.form['category']
         session.add(editedItem)
