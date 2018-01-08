@@ -30,13 +30,18 @@
             </nav>
 
             <main role="main" class="col-sm-9 ml-sm-auto col-md-10 pt-3">
+                <h1>Delete Item</h1>
                 <section class="row text-center placeholders">
-                <p>Are you sure you want to delete {{item.name}}</p>
-                <form action="{{url_for('DeleteItem', category_id=category_id, item_id=item_id)}}" method='POST' id="deleteForm">
-
-                </form>
-                <button type="submit" form="deleteForm" >Delete</button>
-                <a href= "{{url_for('item', category_id=category_id, item_id=item_id)}}">Cancel</a>
+                        <div class="jumbotron">
+                            <h1 class="display-3">Important</h1>
+                            <p class="lead">Are you sure you want to delete {{item.name}}</p>
+                            <hr class="my-4">
+                            <p>This action cannot be undone</p>
+                            <form action="{{url_for('DeleteItem', category_id=category_id, item_id=item_id)}}" method='POST' id="deleteForm">
+                                <button type="submit" form="deleteForm" class="btn btn-danger">Delete</button>
+                                <a class="btn btn-primary" href= "{{url_for('item', category_id=category_id, item_id=item_id)}}">Cancel</a>
+                            </form>
+                        </div>
                 </section>
             </main>
         </div>
